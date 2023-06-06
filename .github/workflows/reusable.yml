@@ -1,5 +1,12 @@
 name: Reusable Workflow
-on: workflow_call
+on: 
+    workflow_call:
+        inputs:
+            artifact-name:
+                description: name of uploaded artifact
+                required: false
+                default: dist
+                type: string
 jobs:
     deploy:
         runs-on: ubuntu-latest
