@@ -7,8 +7,19 @@ on:
                 required: false
                 default: dist
                 type: string
+        outputs:
+            result:
+              description: output of deploying app
+              value: ${{ jobs.deploy.outputs.output-value }}
+
+        # secrets:
+        #     some-secret:
+        #         required: false
+
 jobs:
     deploy:
+        outputs:
+            output-value: ${{ steps.output-step.outputs.value }}
         runs-on: ubuntu-latest
         steps:
         - name: Get build artifacts
@@ -18,4 +29,5 @@ jobs:
         - name: Output contents
           run: ls
         - name: Deploy
-          run: echo "Deploying..."
+          id: output-step
+          run: echo "value=Deploying..." >> $GITHUB_OUTPUT
